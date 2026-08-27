@@ -4,7 +4,7 @@ import { useConvexAuth, useQuery } from "convex/react";
 
 export function useAuth() {
   const { isLoading: isAuthLoading, isAuthenticated } = useConvexAuth();
-  const user = useQuery(api.authHelpers.currentUser);
+  const user = useQuery(api.users.currentUser);
   const { signIn, signOut } = useAuthActions();
 
   const isLoading = isAuthLoading || (isAuthenticated && user === undefined);
