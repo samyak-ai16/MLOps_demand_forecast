@@ -1,23 +1,20 @@
 import { Email } from "@convex-dev/auth/providers/Email";
-import { RandomReader, generateRandomString } from "@oslojs/crypto/random";
+
+declare const process: { env: Record<string, string | undefined> };
 
 export const emailOtp = Email({
   id: "email-otp",
   maxAge: 60 * 15, // 15 minutes
   async generateVerificationToken() {
-    const random: RandomReader = {
-      read(bytes: Uint8Array) {
-        crypto.getRandomValues(bytes);
-      },
-    };
-    const alphabet = "0123456789";
-    return generateRandomString(random, alphabet, 6);
+    const array = new Uint8Array(6);
+    crypto.getRandomValues(array);
+    return Array.from(array, (byte) => (byte % 10).toString()).join("");
   },
   async sendVerificationRequest({ identifier: email, token }) {
-    // 1. Always log the code to your local terminal for easy dev testing
+    // 1. Log code to Convex dashboard logs
     console.log(`\n🔑 [VERIFICATION CODE] for ${email}: ${token}\n`);
 
-    // 2. Attempt Resend delivery (works for samyakdongare93@gmail.com or verified domains)
+    // 2. Resend API delivery
     try {
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -26,7 +23,9 @@ export const emailOtp = Email({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Product Demand Forecast <noreply@yourdomain.com>",
+          from:
+            process.env.AUTH_EMAIL_FROM ??
+            "Product Demand Forecast <onboarding@resend.dev>",
           to: email,
           subject: "Your Verification Code",
           html: `<p>Your verification code is: <strong>${token}</strong></p>`,
@@ -35,7 +34,7 @@ export const emailOtp = Email({
 
       if (!response.ok) {
         const errorData = await response.text();
-        console.warn(`Resend non-fatal error: ${errorData}`);
+        console.error(`Resend API delivery error: ${errorData}`);
       }
     } catch (err) {
       console.error("Resend delivery failed:", err);
