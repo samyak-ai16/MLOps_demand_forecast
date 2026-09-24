@@ -6,7 +6,6 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useAuth } from "@/hooks/use-auth";
-import logo from "@/assets/logo.svg";
 import { ArrowRight, Loader2, Mail, UserX, Zap } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
@@ -39,9 +38,9 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
     setIsLoading(true);
     setError(null);
     try {
-      const formData = new FormData(event.currentTarget);
-      await signIn("email-otp", formData);
-      setStep({ email: formData.get("email") as string });
+      const email = (new FormData(event.currentTarget).get("email") as string).trim();
+      await signIn("email-otp", { email });
+      setStep({ email });
       setIsLoading(false);
     } catch (error) {
       setError(error instanceof Error ? error.message : "Failed to send verification code.");
@@ -54,11 +53,19 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
     setIsLoading(true);
     setError(null);
     try {
-      const formData = new FormData(event.currentTarget);
-      await signIn("email-otp", formData);
+      if (typeof step === "string") return;
+      
+      // Submit email and OTP code to convex auth
+      await signIn("email-otp", { 
+        email: step.email, 
+        code: otp,
+        token: otp 
+      });
+      
       navigate(redirect);
-    } catch {
-      setError("The verification code is incorrect.");
+    } catch (err) {
+      console.error("Verification failed:", err);
+      setError("The verification code is incorrect or has expired.");
       setIsLoading(false);
       setOtp("");
     }
@@ -142,8 +149,6 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                   <p className="text-primary-foreground/70 text-sm mt-1">Code sent to {step.email}</p>
                 </div>
                 <form onSubmit={handleOtpSubmit} className="p-6 space-y-4">
-                  <input type="hidden" name="email" value={step.email} />
-                  <input type="hidden" name="code" value={otp} />
                   <div className="flex justify-center">
                     <InputOTP value={otp} onChange={setOtp} maxLength={6} disabled={isLoading}
                       onKeyDown={(e) => {

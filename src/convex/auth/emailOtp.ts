@@ -10,12 +10,27 @@ export const emailOtp = Email({
     crypto.getRandomValues(array);
     return Array.from(array, (byte) => (byte % 10).toString()).join("");
   },
-  async sendVerificationRequest({ identifier: email, token }) {
-    // 1. Log code to Convex dashboard logs
-    console.log(`\n🔑 [VERIFICATION CODE] for ${email}: ${token}\n`);
+  async sendVerificationRequest({
+    identifier: email,
+    token,
+  }: {
+    identifier: string;
+    token: string;
+  }) {
+    // 1. Log code prominently in Convex logs and console
+    console.log(
+      `\n========================================\n` +
+      `🔑 [VERIFICATION CODE] for ${email}: ${token}\n` +
+      `========================================\n`
+    );
 
     // 2. Resend API delivery
     try {
+      if (!process.env.AUTH_RESEND_KEY) {
+        console.warn("AUTH_RESEND_KEY is not set. Verification code logged above.");
+        return;
+      }
+
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -34,10 +49,11 @@ export const emailOtp = Email({
 
       if (!response.ok) {
         const errorData = await response.text();
-        console.error(`Resend API delivery error: ${errorData}`);
+        console.warn(`Resend API notice: ${errorData}`);
+        console.warn(`(If testing on Resend sandbox free tier, emails only deliver to account owner. Use the code above: ${token})`);
       }
     } catch (err) {
-      console.error("Resend delivery failed:", err);
+      console.warn("Resend delivery failed (development mode - use code from logs):", err);
     }
   },
 });
