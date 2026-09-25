@@ -10,7 +10,7 @@ import {
   getRegionPerformance, getTopProducts,
 } from "@/lib/demo-data";
 
-const COLORS = ["#2563EB", "#4F46E5", "#06B6D4", "#F59E0B", "#22C55E", "#EF4444", "#8B5CF6", "#EC4899"];
+const COLORS = ["#818CF8", "#F472B6", "#38BDF8", "#34D399", "#FBBF24", "#FB7185", "#A78BFA", "#F9A8D4"];
 
 export default function SalesAnalytics() {
   const [period, setPeriod] = useState<"daily" | "weekly" | "monthly">("monthly");
@@ -75,11 +75,11 @@ export default function SalesAnalytics() {
             <CardContent>
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="label" tick={{ fontSize: 8 }} interval={period === "daily" ? 5 : 0} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Bar dataKey="sales" fill="#2563EB" stroke="#0F172A" strokeWidth={1} name="Units Sold" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="label" tick={{ fontSize: 8 }} interval={period === "daily" ? 5 : 0} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Bar dataKey="sales" fill="#818CF8" radius={[4, 4, 0, 0]} name="Units Sold" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -89,11 +89,11 @@ export default function SalesAnalytics() {
             <CardContent>
               <ResponsiveContainer width="100%" height={280}>
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="label" tick={{ fontSize: 8 }} interval={period === "daily" ? 5 : 0} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Line type="monotone" dataKey="revenue" stroke="#4F46E5" strokeWidth={2} dot={false} name="Revenue ($)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="label" tick={{ fontSize: 8 }} interval={period === "daily" ? 5 : 0} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Line type="monotone" dataKey="revenue" stroke="#A78BFA" strokeWidth={2} dot={false} name="Revenue ($)" />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -108,9 +108,9 @@ export default function SalesAnalytics() {
               <ResponsiveContainer width="100%" height={280}>
                 <PieChart>
                   <Pie data={catPerf} dataKey="revenue" nameKey="category" cx="50%" cy="50%" outerRadius={100} label={({ category, percent }) => `${category} ${(percent * 100).toFixed(0)}%`}>
-                    {catPerf.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} stroke="#0F172A" strokeWidth={2} />)}
+                    {catPerf.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} stroke="var(--card)" strokeWidth={2} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>
@@ -122,11 +122,11 @@ export default function SalesAnalytics() {
             <CardContent>
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={regionPerf} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis type="number" tick={{ fontSize: 10 }} />
-                  <YAxis dataKey="region" type="category" tick={{ fontSize: 9 }} width={110} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Bar dataKey="revenue" fill="#06B6D4" stroke="#0F172A" strokeWidth={1} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis type="number" tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis dataKey="region" type="category" tick={{ fontSize: 9 }} width={110} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Bar dataKey="revenue" fill="#38BDF8" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -140,11 +140,11 @@ export default function SalesAnalytics() {
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={topProducts}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="name" tick={{ fontSize: 8 }} angle={-30} textAnchor="end" height={60} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Bar dataKey="revenue" fill="#22C55E" stroke="#0F172A" strokeWidth={1} name="Revenue" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="name" tick={{ fontSize: 8 }} angle={-30} textAnchor="end" height={60} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Bar dataKey="revenue" fill="#34D399" radius={[4, 4, 0, 0]} name="Revenue" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -156,13 +156,13 @@ export default function SalesAnalytics() {
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={yoyData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="month" tick={{ fontSize: 9 }} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="month" tick={{ fontSize: 9 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                   <Legend />
-                  <Line type="monotone" dataKey="thisYear" stroke="#2563EB" strokeWidth={2} dot={false} name="This Year" />
-                  <Line type="monotone" dataKey="lastYear" stroke="#94A3B8" strokeWidth={2} dot={false} strokeDasharray="5 5" name="Last Year" />
+                  <Line type="monotone" dataKey="thisYear" stroke="#818CF8" strokeWidth={2} dot={false} name="This Year" />
+                  <Line type="monotone" dataKey="lastYear" stroke="#CBD5E1" strokeWidth={2} dot={false} strokeDasharray="5 5" name="Last Year" />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>

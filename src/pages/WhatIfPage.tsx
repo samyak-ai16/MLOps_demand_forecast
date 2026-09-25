@@ -127,22 +127,22 @@ export default function WhatIfPage() {
 
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Bar dataKey="demand" fill="#2563EB" stroke="#0F172A" strokeWidth={2} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Bar dataKey="demand" fill="#818CF8" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
 
               <h4 className="text-sm font-bold mt-4">Sensitivity Analysis</h4>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={sensitivityData} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis type="number" tick={{ fontSize: 10 }} />
-                  <YAxis dataKey="scenario" type="category" tick={{ fontSize: 9 }} width={120} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Bar dataKey="demand" fill="#4F46E5" stroke="#0F172A" strokeWidth={1} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis type="number" tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis dataKey="scenario" type="category" tick={{ fontSize: 9 }} width={120} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Bar dataKey="demand" fill="#A78BFA" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>

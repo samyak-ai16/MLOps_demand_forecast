@@ -6,7 +6,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useAuth } from "@/hooks/use-auth";
-import { ArrowRight, Loader2, Mail, UserX, Zap } from "lucide-react";
+import { ArrowRight, Loader2, Mail, UserX, Zap, Sparkles } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
@@ -84,72 +84,82 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background selection:bg-indigo-100 selection:text-indigo-900">
       {/* Top bar */}
-      <div className="border-b-2 border-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center gap-2">
-          <button onClick={() => navigate("/")} className="flex items-center gap-2">
-            <div className="p-1.5 border-2 border-border bg-primary text-primary-foreground">
-              <Zap className="size-4" />
+      <div className="border-b border-border/60 bg-card/75 backdrop-blur-md sticky top-0 z-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <button onClick={() => navigate("/")} className="flex items-center gap-2.5 cursor-pointer">
+            <div className="size-8 rounded-xl flex items-center justify-center bg-gradient-to-tr from-indigo-100 via-purple-100 to-pink-100 dark:from-indigo-950 dark:via-purple-950 dark:to-pink-950 border border-indigo-200/60 dark:border-indigo-800/40 text-indigo-600 dark:text-indigo-400 shadow-2xs">
+              <Zap className="size-4 fill-indigo-500/20 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <span className="font-bold text-sm">MLOps Forecast</span>
+            <span className="font-bold text-sm tracking-tight text-foreground">MLOps Forecast</span>
           </button>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="w-full max-w-[400px]">
-          <div className="nb-card-static bg-card p-0 overflow-hidden">
+      <div className="flex-1 flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-[420px]">
+          <div className="rounded-3xl border border-border/80 bg-card shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
             {step === "signIn" ? (
               <>
-                <div className="bg-primary text-primary-foreground p-6 text-center">
-                  <div className="flex justify-center mb-3">
-                    <div className="p-3 border-2 border-primary-foreground/30 bg-primary-foreground/10">
-                      <Zap className="size-6" />
+                <div className="p-8 text-center bg-gradient-to-br from-indigo-50/80 via-purple-50/40 to-pink-50/30 dark:from-slate-900/90 dark:via-indigo-950/30 dark:to-slate-900 border-b border-border/60">
+                  <div className="flex justify-center mb-3.5">
+                    <div className="size-12 rounded-2xl flex items-center justify-center bg-white/90 dark:bg-slate-800/90 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/40 shadow-xs">
+                      <Zap className="size-6 fill-indigo-500/20" />
                     </div>
                   </div>
-                  <h1 className="text-xl font-bold">Welcome Back</h1>
-                  <p className="text-primary-foreground/70 text-sm mt-1">Sign in to your MLOps dashboard</p>
+                  <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Welcome Back</h1>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">Sign in to your MLOps demand platform</p>
                 </div>
-                <form onSubmit={handleEmailSubmit} className="p-6 space-y-4">
+                <form onSubmit={handleEmailSubmit} className="p-6 sm:p-7 space-y-4">
                   <div>
-                    <label className="text-xs font-bold mb-1 block">Email Address</label>
+                    <label className="text-xs font-semibold text-foreground mb-1.5 block">Email Address</label>
                     <div className="relative">
-                      <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/70" />
                       <Input
                         name="email"
                         placeholder="name@example.com"
                         type="email"
-                        className="nb-input pl-9 bg-background"
+                        className="pl-9 rounded-xl bg-slate-50/60 dark:bg-slate-800/30 border-border/70 focus:border-indigo-300 dark:focus:border-indigo-700"
                         disabled={isLoading}
                         required
                       />
                     </div>
                   </div>
-                  {error && <p className="text-sm text-destructive font-medium">{error}</p>}
-                  <Button type="submit" className="nb-btn w-full bg-primary text-primary-foreground" disabled={isLoading}>
+                  {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+                  <Button
+                    type="submit"
+                    className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-sm hover:shadow-indigo-500/25 transition-all py-2 cursor-pointer"
+                    disabled={isLoading}
+                  >
                     {isLoading ? <Loader2 className="mr-2 size-4 animate-spin" /> : <ArrowRight className="mr-2 size-4" />}
                     Send Verification Code
                   </Button>
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t-2 border-border" /></div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-card px-2 text-muted-foreground font-bold">Or</span>
+                  <div className="relative my-2">
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border/60" /></div>
+                    <div className="relative flex justify-center text-[10px] uppercase">
+                      <span className="bg-card px-2 text-muted-foreground font-semibold">Or continue with</span>
                     </div>
                   </div>
-                  <Button type="button" variant="outline" className="nb-btn w-full" onClick={handleGuestLogin} disabled={isLoading}>
-                    <UserX className="mr-2 size-4" /> Continue as Guest
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full rounded-xl border border-border/80 hover:bg-slate-50 dark:hover:bg-slate-800/40 text-foreground transition-all py-2 cursor-pointer"
+                    onClick={handleGuestLogin}
+                    disabled={isLoading}
+                  >
+                    <UserX className="mr-2 size-4 text-indigo-500" /> Demo Guest Access
                   </Button>
                 </form>
               </>
             ) : (
               <>
-                <div className="bg-primary text-primary-foreground p-6 text-center">
-                  <h1 className="text-xl font-bold">Check Your Email</h1>
-                  <p className="text-primary-foreground/70 text-sm mt-1">Code sent to {step.email}</p>
+                <div className="p-8 text-center bg-gradient-to-br from-indigo-50/80 via-purple-50/40 to-pink-50/30 dark:from-slate-900/90 dark:via-indigo-950/30 dark:to-slate-900 border-b border-border/60">
+                  <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Check Your Email</h1>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">We sent a 6-digit code to {step.email}</p>
                 </div>
-                <form onSubmit={handleOtpSubmit} className="p-6 space-y-4">
-                  <div className="flex justify-center">
+                <form onSubmit={handleOtpSubmit} className="p-6 sm:p-7 space-y-4">
+                  <div className="flex justify-center py-2">
                     <InputOTP value={otp} onChange={setOtp} maxLength={6} disabled={isLoading}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && otp.length === 6 && !isLoading) {
@@ -158,17 +168,27 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                       }}>
                       <InputOTPGroup>
                         {Array.from({ length: 6 }).map((_, index) => (
-                          <InputOTPSlot key={index} index={index} className="nb-input" />
+                          <InputOTPSlot key={index} index={index} className="rounded-xl border-border/70" />
                         ))}
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
-                  {error && <p className="text-sm text-destructive font-medium text-center">{error}</p>}
-                  <Button type="submit" className="nb-btn w-full bg-primary text-primary-foreground" disabled={isLoading || otp.length !== 6}>
+                  {error && <p className="text-xs text-rose-500 font-medium text-center">{error}</p>}
+                  <Button
+                    type="submit"
+                    className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-sm hover:shadow-indigo-500/25 transition-all py-2 cursor-pointer"
+                    disabled={isLoading || otp.length !== 6}
+                  >
                     {isLoading ? <Loader2 className="mr-2 size-4 animate-spin" /> : <ArrowRight className="mr-2 size-4" />}
                     Verify & Sign In
                   </Button>
-                  <Button type="button" variant="ghost" onClick={() => setStep("signIn")} disabled={isLoading} className="w-full">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setStep("signIn")}
+                    disabled={isLoading}
+                    className="w-full rounded-xl text-xs text-muted-foreground hover:text-foreground"
+                  >
                     Use different email
                   </Button>
                 </form>

@@ -121,17 +121,17 @@ export default function DemandForecast() {
           <CardContent>
             <ResponsiveContainer width="100%" height={350}>
               <AreaChart data={forecast}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                <XAxis dataKey="date" tick={{ fontSize: 9 }} interval={Math.floor(forecast.length / 10)} />
-                <YAxis tick={{ fontSize: 10 }} />
-                <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                <XAxis dataKey="date" tick={{ fontSize: 9 }} interval={Math.floor(forecast.length / 10)} stroke="currentColor" strokeOpacity={0.4} />
+                <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0,0,0,0.08)", fontSize: 12, padding: "8px 12px" }} />
                 <Legend />
-                <ReferenceLine x={new Date().toISOString().split("T")[0]} stroke="#EF4444" strokeDasharray="5 5" label="Today" />
+                <ReferenceLine x={new Date().toISOString().split("T")[0]} stroke="#F87171" strokeDasharray="5 5" label="Today" />
                 {/* Confidence band */}
-                <Area type="monotone" dataKey="upperBound" stroke="none" fill="#2563EB" fillOpacity={0.08} name="Upper CI" />
-                <Area type="monotone" dataKey="lowerBound" stroke="none" fill="#2563EB" fillOpacity={0.08} name="Lower CI" />
-                <Line type="monotone" dataKey="actual" stroke="#0F172A" strokeWidth={2} dot={false} name="Historical Demand" />
-                <Line type="monotone" dataKey="predicted" stroke="#2563EB" strokeWidth={2.5} dot={false} strokeDasharray="8 4" name="Predicted Demand" />
+                <Area type="monotone" dataKey="upperBound" stroke="none" fill="#818CF8" fillOpacity={0.12} name="Upper CI" />
+                <Area type="monotone" dataKey="lowerBound" stroke="none" fill="#818CF8" fillOpacity={0.12} name="Lower CI" />
+                <Line type="monotone" dataKey="actual" stroke="#94A3B8" strokeWidth={2} dot={false} name="Historical Demand" />
+                <Line type="monotone" dataKey="predicted" stroke="#6366F1" strokeWidth={2.5} dot={false} strokeDasharray="6 4" name="Predicted Demand" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>

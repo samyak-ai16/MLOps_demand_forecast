@@ -52,11 +52,11 @@ export default function MonitoringPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={metrics}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} />
-                  <YAxis domain={[90, 100]} tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Line type="monotone" dataKey="accuracy" stroke="#2563EB" strokeWidth={2} dot={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis domain={[90, 100]} tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Line type="monotone" dataKey="accuracy" stroke="#818CF8" strokeWidth={2.5} dot={false} />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -67,13 +67,13 @@ export default function MonitoringPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={metrics}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                   <Legend />
-                  <Line type="monotone" dataKey="mae" stroke="#EF4444" strokeWidth={2} dot={false} name="MAE" />
-                  <Line type="monotone" dataKey="rmse" stroke="#F59E0B" strokeWidth={2} dot={false} name="RMSE" />
+                  <Line type="monotone" dataKey="mae" stroke="#F87171" strokeWidth={2} dot={false} name="MAE" />
+                  <Line type="monotone" dataKey="rmse" stroke="#FBBF24" strokeWidth={2} dot={false} name="RMSE" />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -87,12 +87,12 @@ export default function MonitoringPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={250}>
                 <AreaChart data={metrics}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                   <Legend />
-                  <Area type="monotone" dataKey="requests" stroke="#22C55E" fill="#22C55E" fillOpacity={0.15} strokeWidth={2} name="Requests" />
+                  <Area type="monotone" dataKey="requests" stroke="#34D399" fill="#34D399" fillOpacity={0.15} strokeWidth={2} name="Requests" />
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -104,11 +104,11 @@ export default function MonitoringPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={featureImportance} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis type="number" tick={{ fontSize: 10 }} domain={[0, 50]} />
-                  <YAxis dataKey="feature" type="category" tick={{ fontSize: 10 }} width={100} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} formatter={(v: number) => `${v}%`} />
-                  <Bar dataKey="importance" fill="#4F46E5" stroke="#0F172A" strokeWidth={1} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis type="number" tick={{ fontSize: 10 }} domain={[0, 50]} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis dataKey="feature" type="category" tick={{ fontSize: 10 }} width={100} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} formatter={(v: number) => `${v}%`} />
+                  <Bar dataKey="importance" fill="#818CF8" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
               <p className="text-xs text-muted-foreground mt-2 italic">
@@ -125,13 +125,13 @@ export default function MonitoringPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={220}>
                 <AreaChart data={metrics}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} />
-                  <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                   <Legend />
-                  <Area type="monotone" dataKey="cpuUsage" stroke="#8B5CF6" fill="#8B5CF6" fillOpacity={0.15} strokeWidth={2} name="CPU %" />
-                  <Area type="monotone" dataKey="memoryUsage" stroke="#EC4899" fill="#EC4899" fillOpacity={0.1} strokeWidth={2} name="Memory %" />
+                  <Area type="monotone" dataKey="cpuUsage" stroke="#818CF8" fill="#818CF8" fillOpacity={0.15} strokeWidth={2} name="CPU %" />
+                  <Area type="monotone" dataKey="memoryUsage" stroke="#F472B6" fill="#F472B6" fillOpacity={0.1} strokeWidth={2} name="Memory %" />
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -142,11 +142,11 @@ export default function MonitoringPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={metrics}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
-                  <Line type="monotone" dataKey="latency" stroke="#06B6D4" strokeWidth={2} dot={false} name="Latency (ms)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="timestamp" tick={{ fontSize: 9 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
+                  <Line type="monotone" dataKey="latency" stroke="#38BDF8" strokeWidth={2} dot={false} name="Latency (ms)" />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>

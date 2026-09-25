@@ -80,14 +80,14 @@ export default function ModelCompare() {
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={barData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0F172A" strokeOpacity={0.1} />
-                  <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                  <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.06} />
+                  <XAxis dataKey="name" tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <YAxis tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.4} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                   <Legend />
-                  <Bar dataKey="MAE" fill="#2563EB" stroke="#0F172A" strokeWidth={1} />
-                  <Bar dataKey="RMSE" fill="#4F46E5" stroke="#0F172A" strokeWidth={1} />
-                  <Bar dataKey="MAPE" fill="#06B6D4" stroke="#0F172A" strokeWidth={1} />
+                  <Bar dataKey="MAE" fill="#818CF8" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="RMSE" fill="#F472B6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="MAPE" fill="#38BDF8" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -99,13 +99,13 @@ export default function ModelCompare() {
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <RadarChart data={radarData}>
-                  <PolarGrid stroke="#0F172A" strokeOpacity={0.2} />
-                  <PolarAngleAxis dataKey="model" tick={{ fontSize: 10 }} />
+                  <PolarGrid stroke="currentColor" strokeOpacity={0.1} />
+                  <PolarAngleAxis dataKey="model" tick={{ fontSize: 10 }} stroke="currentColor" strokeOpacity={0.5} />
                   <PolarRadiusAxis tick={{ fontSize: 8 }} />
-                  <Radar name="Accuracy" dataKey="accuracy" stroke="#2563EB" fill="#2563EB" fillOpacity={0.15} strokeWidth={2} />
-                  <Radar name="R²" dataKey="r2Scaled" stroke="#22C55E" fill="#22C55E" fillOpacity={0.1} strokeWidth={2} />
+                  <Radar name="Accuracy" dataKey="accuracy" stroke="#818CF8" fill="#818CF8" fillOpacity={0.2} strokeWidth={2} />
+                  <Radar name="R²" dataKey="r2Scaled" stroke="#34D399" fill="#34D399" fillOpacity={0.15} strokeWidth={2} />
                   <Legend />
-                  <Tooltip contentStyle={{ border: "2px solid #0F172A", borderRadius: 0, fontSize: 12 }} />
+                  <Tooltip contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 8px 30px -4px rgba(0, 0, 0, 0.08)", fontSize: 12, padding: "8px 12px" }} />
                 </RadarChart>
               </ResponsiveContainer>
             </CardContent>
