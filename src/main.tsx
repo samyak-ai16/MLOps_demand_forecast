@@ -75,7 +75,19 @@ class RootErrorBoundary extends React.Component<
   }
 }
 
-const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+const FALLBACK_CONVEX_URL = "https://keen-cod-459.convex.cloud";
+const convexUrl =
+  (typeof import.meta.env.VITE_CONVEX_URL === "string" && import.meta.env.VITE_CONVEX_URL.trim() !== "")
+    ? import.meta.env.VITE_CONVEX_URL.trim()
+    : FALLBACK_CONVEX_URL;
+
+let convex: ConvexReactClient;
+try {
+  convex = new ConvexReactClient(convexUrl);
+} catch (e) {
+  console.error("[Convex] Failed to initialize ConvexReactClient with URL:", convexUrl, e);
+  convex = new ConvexReactClient(FALLBACK_CONVEX_URL);
+}
 
 function RouteSyncer() {
   const location = useLocation();
