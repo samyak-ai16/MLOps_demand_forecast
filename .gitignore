@@ -1,4 +1,13 @@
 .env.local
 node_modules
 dist
-
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.sqlite3
+.venv
+env/
+venv/
