@@ -4,40 +4,40 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   TrendingUp,
-  Package,
-  BarChart3,
   Database,
+  Building2,
+  Package,
+  Boxes,
+  Network,
   Brain,
-  GitCompare,
+  FlaskConical,
+  Layers,
   Workflow,
   Activity,
-  AlertTriangle,
-  FlaskConical,
+  Bell,
   FileText,
-  ScrollText,
   Settings,
   ChevronLeft,
   ChevronRight,
   Zap,
-  Menu,
-  X,
   Sparkles,
 } from "lucide-react";
 
-const navItems = [
-  { label: "Overview", path: "/dashboard", icon: LayoutDashboard },
-  { label: "Demand Forecast", path: "/dashboard/forecast", icon: TrendingUp },
-  { label: "Products", path: "/dashboard/products", icon: Package },
-  { label: "Sales Analytics", path: "/dashboard/analytics", icon: BarChart3 },
+export const navItems = [
+  { label: "Overview Dashboard", path: "/dashboard", icon: LayoutDashboard },
+  { label: "Demand Forecasting", path: "/dashboard/forecast", icon: TrendingUp },
   { label: "Data Management", path: "/dashboard/data", icon: Database },
-  { label: "Model Center", path: "/dashboard/models", icon: Brain },
-  { label: "Model Comparison", path: "/dashboard/compare", icon: GitCompare },
-  { label: "MLOps Pipeline", path: "/dashboard/pipeline", icon: Workflow },
+  { label: "Warehouse Management", path: "/dashboard/warehouses", icon: Building2 },
+  { label: "Product Management", path: "/dashboard/products", icon: Package },
+  { label: "Inventory Management", path: "/dashboard/inventory", icon: Boxes },
+  { label: "Supply Chain Analytics", path: "/dashboard/supply-chain", icon: Network },
+  { label: "ML Models", path: "/dashboard/models", icon: Brain },
+  { label: "Experiment Tracking", path: "/dashboard/experiments", icon: FlaskConical },
+  { label: "Model Registry", path: "/dashboard/registry", icon: Layers },
+  { label: "Pipeline Management", path: "/dashboard/pipeline", icon: Workflow },
   { label: "Model Monitoring", path: "/dashboard/monitoring", icon: Activity },
-  { label: "Anomaly Detection", path: "/dashboard/anomalies", icon: AlertTriangle },
-  { label: "What-If Analysis", path: "/dashboard/whatif", icon: FlaskConical },
-  { label: "Reports", path: "/dashboard/reports", icon: FileText },
-  { label: "System Logs", path: "/dashboard/logs", icon: ScrollText },
+  { label: "Alerts & Notifications", path: "/dashboard/alerts", icon: Bell },
+  { label: "Reports & Exports", path: "/dashboard/reports", icon: FileText },
   { label: "Settings", path: "/dashboard/settings", icon: Settings },
 ];
 
@@ -52,27 +52,27 @@ export function Sidebar() {
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-card/70 backdrop-blur-md">
-      {/* Logo */}
-      <div className="p-4 flex items-center justify-between border-b border-border/60">
-        <div className="flex items-center gap-2.5 overflow-hidden">
-          <div className="size-9 rounded-xl flex items-center justify-center bg-gradient-to-tr from-indigo-100 via-purple-100 to-pink-100 dark:from-indigo-950 dark:via-purple-950 dark:to-pink-950 border border-indigo-200/60 dark:border-indigo-800/40 text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm">
-            <Zap className="size-4 fill-indigo-500/20 text-indigo-600 dark:text-indigo-400" />
+    <div className="flex flex-col h-full bg-[#222831] text-white">
+      {/* Brand Header */}
+      <div className="p-4 flex items-center justify-between border-b border-[#393e46]">
+        <Link to="/dashboard" className="flex items-center gap-2.5 overflow-hidden">
+          <div className="size-9 rounded-xl flex items-center justify-center bg-[#00adb5] text-[#222831] font-black shrink-0 shadow-sm">
+            <Zap className="size-5 fill-[#222831]" />
           </div>
           {!collapsed && (
             <div className="flex flex-col">
-              <span className="font-bold text-sm tracking-tight text-foreground truncate">
-                MLOps Forecast
+              <span className="font-extrabold text-sm tracking-tight text-white truncate">
+                DemandFlow AI
               </span>
-              <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-medium">
-                <Sparkles className="size-2.5 text-indigo-400" /> Predictive AI
+              <span className="text-[10px] text-gray-400 flex items-center gap-1 font-medium">
+                <Sparkles className="size-2.5 text-[#00adb5]" /> Enterprise MLOps
               </span>
             </div>
           )}
-        </div>
+        </Link>
       </div>
 
-      {/* Nav items */}
+      {/* Navigation Links */}
       <nav className="flex-1 overflow-y-auto p-3 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -83,19 +83,17 @@ export function Sidebar() {
               to={item.path}
               onClick={() => setMobileOpen(false)}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150",
+                "flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl transition-all duration-150",
                 active
-                  ? "bg-indigo-50/90 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-300 shadow-sm border border-indigo-100 dark:border-indigo-900/50"
-                  : "text-muted-foreground hover:bg-slate-100/60 dark:hover:bg-slate-800/40 hover:text-foreground",
+                  ? "bg-[#00adb5] text-[#222831] font-bold shadow-md shadow-[#00adb5]/20"
+                  : "text-gray-300 hover:bg-[#393e46] hover:text-white",
                 collapsed && "justify-center px-2 py-2"
               )}
             >
               <Icon
                 className={cn(
                   "size-4 shrink-0 transition-transform duration-150",
-                  active
-                    ? "text-indigo-600 dark:text-indigo-300 scale-105"
-                    : "text-slate-400 group-hover:text-foreground"
+                  active ? "text-[#222831] scale-105" : "text-gray-400"
                 )}
               />
               {!collapsed && <span className="truncate">{item.label}</span>}
@@ -104,11 +102,17 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Collapse toggle (desktop only) */}
-      <div className="p-3 border-t border-border/60">
+      {/* Footer / User info */}
+      <div className="p-3 border-t border-[#393e46] flex items-center justify-between">
+        {!collapsed && (
+          <div className="flex items-center gap-2 truncate text-xs text-gray-400">
+            <span className="size-2 rounded-full bg-[#00adb5] animate-pulse" />
+            <span className="truncate font-medium">ABC Retail • Online</span>
+          </div>
+        )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex w-full items-center justify-center p-2 rounded-xl text-muted-foreground hover:bg-slate-100/70 dark:hover:bg-slate-800/50 hover:text-foreground transition-all duration-150"
+          className="p-1.5 rounded-lg hover:bg-[#393e46] text-gray-400 hover:text-white transition-colors"
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? <ChevronRight className="size-4" /> : <ChevronLeft className="size-4" />}
@@ -119,42 +123,35 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile hamburger */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="fixed top-3 left-3 z-50 lg:hidden p-2 rounded-xl bg-card/90 backdrop-blur-md border border-border/70 shadow-sm text-foreground hover:bg-muted"
-      >
-        <Menu className="size-5" />
-      </button>
-
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div className="relative w-64 h-full bg-card border-r border-border/70 shadow-xl animate-in slide-in-from-left duration-200">
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"
-            >
-              <X className="size-4" />
-            </button>
-            {sidebarContent}
-          </div>
-        </div>
-      )}
-
-      {/* Desktop sidebar */}
+      {/* Desktop Sidebar */}
       <aside
         className={cn(
-          "hidden lg:block h-screen sticky top-0 bg-card/50 backdrop-blur-sm border-r border-border/60 overflow-hidden transition-all duration-200 z-30",
-          collapsed ? "w-16" : "w-60"
+          "hidden md:flex flex-col border-r border-[#393e46] h-screen sticky top-0 transition-all duration-300 z-30 shrink-0",
+          collapsed ? "w-16" : "w-64"
         )}
       >
         {sidebarContent}
       </aside>
+
+      {/* Mobile Toggle Button */}
+      <div className="md:hidden fixed top-3 left-3 z-50">
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="size-9 rounded-xl bg-[#222831] border border-[#393e46] text-white flex items-center justify-center shadow-lg"
+        >
+          <Zap className="size-4 text-[#00adb5]" />
+        </button>
+      </div>
+
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 z-40 flex">
+          <div className="fixed inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
+          <div className="relative w-64 h-full z-50 shadow-2xl">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
     </>
   );
 }

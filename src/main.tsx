@@ -14,25 +14,34 @@ const Landing = lazy(() => import("./pages/Landing.tsx"));
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
 const DashboardOverview = lazy(() => import("./pages/Dashboard.tsx"));
 const ForecastPage = lazy(() => import("./pages/ForecastPage.tsx"));
-const ProductsPage = lazy(() => import("./pages/ProductsPage.tsx"));
-const SalesAnalytics = lazy(() => import("./pages/SalesAnalyticsPage.tsx"));
 const DataManagement = lazy(() => import("./pages/DataManagementPage.tsx"));
+const WarehouseManagementPage = lazy(() => import("./pages/WarehouseManagementPage.tsx"));
+const ProductsPage = lazy(() => import("./pages/ProductsPage.tsx"));
+const InventoryOptimizationPage = lazy(() => import("./pages/InventoryOptimizationPage.tsx"));
+const SupplyChainPage = lazy(() => import("./pages/SupplyChainPage.tsx"));
 const ModelCenter = lazy(() => import("./pages/ModelCenterPage.tsx"));
-const ModelCompare = lazy(() => import("./pages/ModelComparePage.tsx"));
+const ExperimentTrackingPage = lazy(() => import("./pages/ExperimentTrackingPage.tsx"));
+const ModelRegistryPage = lazy(() => import("./pages/ModelRegistryPage.tsx"));
 const PipelinePage = lazy(() => import("./pages/PipelinePage.tsx"));
 const MonitoringPage = lazy(() => import("./pages/MonitoringPage.tsx"));
+const AlertsPage = lazy(() => import("./pages/AlertsPage.tsx"));
+const ReportsPage = lazy(() => import("./pages/ReportsPage.tsx"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage.tsx"));
+const SalesAnalytics = lazy(() => import("./pages/SalesAnalyticsPage.tsx"));
+const ModelCompare = lazy(() => import("./pages/ModelComparePage.tsx"));
 const AnomalyPage = lazy(() => import("./pages/AnomalyPage.tsx"));
 const WhatIfPage = lazy(() => import("./pages/WhatIfPage.tsx"));
-const ReportsPage = lazy(() => import("./pages/ReportsPage.tsx"));
 const LogsPage = lazy(() => import("./pages/LogsPage.tsx"));
-const SettingsPage = lazy(() => import("./pages/SettingsPage.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 function RouteLoading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="nb-card-static bg-card p-6 text-center">
-        <div className="animate-pulse text-muted-foreground font-bold text-sm">Loading...</div>
+    <div className="min-h-screen flex items-center justify-center bg-[#222831]">
+      <div className="p-6 text-center space-y-3">
+        <div className="size-10 rounded-2xl bg-[#00adb5]/20 border border-[#00adb5] flex items-center justify-center mx-auto text-[#00adb5] animate-spin">
+          ✦
+        </div>
+        <div className="text-gray-300 font-bold text-sm tracking-wider">DemandFlow AI Loading...</div>
       </div>
     </div>
   );
@@ -59,11 +68,11 @@ class RootErrorBoundary extends React.Component<
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-6">
-          <div className="nb-card-static bg-card max-w-lg text-center p-6">
+          <div className="bg-card max-w-lg text-center p-6 rounded-3xl border border-border">
             <p className="text-sm font-bold">Runtime Error</p>
             <p className="mt-2 text-xs text-muted-foreground break-words">{this.state.message}</p>
             {this.state.stack && (
-              <pre className="mt-3 text-left text-[10px] leading-4 text-muted-foreground max-h-40 overflow-auto border-2 border-border p-2">
+              <pre className="mt-3 text-left text-[10px] leading-4 text-muted-foreground max-h-40 overflow-auto border border-border p-2 rounded-xl">
                 {this.state.stack}
               </pre>
             )}
@@ -122,18 +131,24 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/auth" element={<AuthPage redirectAfterAuth="/dashboard" />} />
               <Route path="/dashboard" element={<RequireAuth><DashboardOverview /></RequireAuth>} />
               <Route path="/dashboard/forecast" element={<RequireAuth><ForecastPage /></RequireAuth>} />
-              <Route path="/dashboard/products" element={<RequireAuth><ProductsPage /></RequireAuth>} />
-              <Route path="/dashboard/analytics" element={<RequireAuth><SalesAnalytics /></RequireAuth>} />
               <Route path="/dashboard/data" element={<RequireAuth><DataManagement /></RequireAuth>} />
+              <Route path="/dashboard/warehouses" element={<RequireAuth><WarehouseManagementPage /></RequireAuth>} />
+              <Route path="/dashboard/products" element={<RequireAuth><ProductsPage /></RequireAuth>} />
+              <Route path="/dashboard/inventory" element={<RequireAuth><InventoryOptimizationPage /></RequireAuth>} />
+              <Route path="/dashboard/supply-chain" element={<RequireAuth><SupplyChainPage /></RequireAuth>} />
               <Route path="/dashboard/models" element={<RequireAuth><ModelCenter /></RequireAuth>} />
-              <Route path="/dashboard/compare" element={<RequireAuth><ModelCompare /></RequireAuth>} />
+              <Route path="/dashboard/experiments" element={<RequireAuth><ExperimentTrackingPage /></RequireAuth>} />
+              <Route path="/dashboard/registry" element={<RequireAuth><ModelRegistryPage /></RequireAuth>} />
               <Route path="/dashboard/pipeline" element={<RequireAuth><PipelinePage /></RequireAuth>} />
               <Route path="/dashboard/monitoring" element={<RequireAuth><MonitoringPage /></RequireAuth>} />
+              <Route path="/dashboard/alerts" element={<RequireAuth><AlertsPage /></RequireAuth>} />
+              <Route path="/dashboard/reports" element={<RequireAuth><ReportsPage /></RequireAuth>} />
+              <Route path="/dashboard/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
+              <Route path="/dashboard/analytics" element={<RequireAuth><SalesAnalytics /></RequireAuth>} />
+              <Route path="/dashboard/compare" element={<RequireAuth><ModelCompare /></RequireAuth>} />
               <Route path="/dashboard/anomalies" element={<RequireAuth><AnomalyPage /></RequireAuth>} />
               <Route path="/dashboard/whatif" element={<RequireAuth><WhatIfPage /></RequireAuth>} />
-              <Route path="/dashboard/reports" element={<RequireAuth><ReportsPage /></RequireAuth>} />
               <Route path="/dashboard/logs" element={<RequireAuth><LogsPage /></RequireAuth>} />
-              <Route path="/dashboard/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

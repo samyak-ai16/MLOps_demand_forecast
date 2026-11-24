@@ -1,272 +1,170 @@
-## Overview
+# DemandFlow AI
 
-This project uses the following tech stack:
-- Vite
-- Typescript
-- React Router v7 (all imports from `react-router` instead of `react-router-dom`)
-- React 19 (for frontend components)
-- Tailwind v4 (for styling)
-- Shadcn UI (for UI components library)
-- Lucide Icons (for icons)
-- Convex (for backend & database)
-- Convex Auth (for authentication)
-- Framer Motion (for animations)
-- Three js (for 3d models)
+> **Project Title:** Design and Development of an MLOps-Driven Predictive Analytics Framework for Intelligent Product Demand Forecasting  
+> **Platform Name:** DemandFlow AI — Intelligent 3D Warehouse Intelligence & MLOps Forecasting Platform
 
-All relevant files live in the 'src' directory.
+---
 
-Use bun for the package manager.
+## 🚀 Overview
 
-## Setup
+**DemandFlow AI** is an enterprise-grade predictive analytics and MLOps platform engineered to transform supply-chain demand planning. By unifying high-precision machine learning forecasting, 3D warehouse digital twin spatial visualization, and automated continuous-learning MLOps pipelines, DemandFlow AI empowers supply chain managers to eliminate stockouts, minimize excess holding costs, and monitor model performance in real time.
 
-This project is set up already and running on a cloud environment, as well as a convex development in the sandbox.
+---
 
-## Environment Variables
+## 🏛️ System Architecture
 
-The project is set up with project specific CONVEX_DEPLOYMENT and VITE_CONVEX_URL environment variables on the client side.
+```mermaid
+flowchart TD
+    subgraph Data Layer
+        A1[CSV / Excel Ingestion] --> B[Data Validation Engine]
+        A2[REST API Ingestion] --> B
+        A3[Warehouse Inventory DB] --> B
+    end
 
-The convex server has a separate set of environment variables that are accessible by the convex backend.
+    subgraph MLOps Pipeline
+        B --> C[Data Cleaning & Feature Engineering]
+        C --> D[Model Training & Backtesting]
+        D -->|Evaluation: WAPE, MAE, RMSE| E{Quality Gate}
+        E -->|Pass| F[MLflow Model Registry]
+        F --> G[Production Inference Pods]
+    end
 
-Currently, these variables include auth-specific keys: JWKS, JWT_PRIVATE_KEY, and SITE_URL.
+    subgraph 3D Spatial & Intelligence
+        G --> H1[3D Warehouse Digital Twin Three.js]
+        G --> H2[3D Multi-Echelon Supply Network]
+        G --> H3[Dynamic Safety Stock & ROP Calculator]
+    end
 
-
-# Using Authentication (Important!)
-
-You must follow these conventions when using authentication.
-
-## Auth is already set up.
-
-All convex authentication functions are already set up. The auth currently uses email OTP and anonymous users, but can support more.
-
-The email OTP configuration is defined in `src/convex/auth/emailOtp.ts`. DO NOT MODIFY THIS FILE.
-
-Also, DO NOT MODIFY THESE AUTH FILES: `src/convex/auth.config.ts` and `src/convex/auth.ts`.
-
-## Using Convex Auth on the backend
-
-On the `src/convex/users.ts` file, you can use the `getCurrentUser` function to get the current user's data.
-
-## Using Convex Auth on the frontend
-
-The `/auth` page is already set up to use auth. Navigate to `/auth` for all log in / sign up sequences.
-
-You MUST use this hook to get user data. Never do this yourself without the hook:
-```typescript
-import { useAuth } from "@/hooks/use-auth";
-
-const { isLoading, isAuthenticated, user, signIn, signOut } = useAuth();
+    subgraph Monitoring & Governance
+        G --> I[Evidently KS-Drift Monitor]
+        I -->|Drift Detected| D
+    end
 ```
 
-## Protected Routes
+---
 
-The starter `/dashboard` route is protected with `RequireAuth`, which sends
-signed-out users to `/auth?returnTo=<current route>`. Extend that page for the
-product's authenticated experience, and reuse `RequireAuth` when adding another
-protected route.
+## ✨ Key Features & Capabilities
 
-## Auth Page
+### 1. 🏢 3D Spatial Warehouse Digital Twin
+- **Interactive 3D Racking Systems:** Real-time spatial representation of warehouse bays, multi-level shelves, pallets, and carton boxes.
+- **Raycast Section Inspection:** Click on any shelf bay to inspect current stock levels, capacity utilization, SKU mix, and low-stock warnings.
+- **Visual Modes:** Realistic Material View, Stockout Risk Heatmap, and Structural Wireframe.
+- **Demonstration Hubs:** Pre-configured for **ABC Retail Distribution** across four Maharashtra strategic nodes:
+  - **Nagpur Central Logistics Hub** (150,000 sq ft)
+  - **Pune High-Tech Distribution Center** (120,000 sq ft)
+  - **Mumbai Harbor Fulfillment Port** (200,000 sq ft)
+  - **Nashik Agro & Retail Facility** (85,000 sq ft)
 
-The auth page is defined in `src/pages/Auth.tsx`. Send sign-in and sign-up actions
-to `/auth`.
+### 2. 🌐 3D Supply Chain Network Topology
+- Interactive spatial network mapping: `Suppliers → Central Strategic Hub (Nagpur) → Regional Facilities → Distribution Channels`.
+- Animated spline particle flows representing material throughput and delivery frequency.
+- Live bottleneck detection highlighting congested transit lanes and critical nodes.
 
-## Authorization
+### 3. 🧠 Machine Learning Forecasting Engine
+- **Supported Algorithms:**
+  - **Meta-Ensemble:** Weighted blend of Gradient Boosted Trees, Random Forest, and 7-day Seasonal Naive.
+  - **Gradient Boosted Trees (XGBoost/LightGBM style):** Non-linear temporal pattern capture.
+  - **Random Forest Regressor:** Robust non-parametric tree ensemble.
+  - **Seasonal Naive:** 7-day cyclical heuristic reference baseline.
+- **Chronological Validation:** Rolling-origin backtesting without look-ahead data leakage.
+- **Evaluation Metrics:** WAPE (Weighted Absolute Percentage Error), MAE, RMSE, MAPE, and R² score.
+- **Multi-Horizon Predictions:** 7, 14, 30, 60, and 90-day forecasts with 90% confidence bands.
 
-You can perform authorization checks on the frontend and backend.
+### 4. 📦 Intelligent Inventory Replenishment & Optimization
+- **Dynamic Safety Stock ($SS$):** $SS = Z \times \sqrt{L} \times \sigma_d$ (configured for 95% cycle service level, $Z=1.65$).
+- **Reorder Point ($ROP$):** $ROP = (\bar{d} \times L) + SS$.
+- **Economic Order Quantity ($EOQ$):** Automated optimal batch sizing balancing ordering vs. inventory holding costs.
+- **Shortage Prediction:** Early warning alerts for SKUs whose on-hand inventory falls below lead-time consumption.
 
-On the frontend, you can use the `useAuth` hook to get the current user's data and authentication state.
+### 5. 🔄 Production MLOps & MLflow Lifecycle Management
+- **Automated 9-Stage Pipeline:** Ingestion → Validation → Cleaning → Feature Engineering → Training → Evaluation → Registry → Deployment → Monitoring.
+- **Model Registry & Versioning:** Track model lineages (`v1.0.0`, `v2.3.1`, `v2.4.0`) with staging transitions (`Production`, `Staging`, `Archived`).
+- **Canary Deployments & Rollbacks:** Zero-downtime model promotion and one-click instant rollbacks to validated historical models.
+- **Continuous Monitoring:** Real-time data drift (Kolmogorov-Smirnov feature tests), prediction drift, API latency tracking, and automatic retraining triggers.
 
-You should also be protecting queries, mutations, and actions at the base level, checking for authorization securely.
+---
 
-## Adding a redirect after auth
+## 🛠️ Technology Stack
 
-The `/auth` route in `src/main.tsx` redirects to `/dashboard` by default. If the
-product's main authenticated route is different, update `redirectAfterAuth` to
-that route. A validated same-origin `returnTo` query parameter takes priority so
-users can resume the protected page they originally requested. Never leave an
-authenticated product redirecting back to the public landing page.
+| Layer | Technologies |
+|---|---|
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS 4, Lucide Icons, Recharts, Framer Motion |
+| **3D Graphics** | Three.js, WebGL, Raycasting, Perspective Camera Controls |
+| **Backend API** | Python 3.11+, FastAPI, Uvicorn, Pydantic v2 |
+| **Machine Learning** | Scikit-learn, Pandas, NumPy, Mathematical Inventory Optimization |
+| **Database & Auth** | Convex Database, Reactive Client, Convex Auth |
+| **Infrastructure** | Docker, Docker Compose, GitHub Actions CI/CD |
 
-## Complete authenticated products
+---
 
-When the requested product implies accounts, a workspace, a dashboard, or other
-signed-in functionality, the task is not complete with only a landing page and
-auth form. Build the main authenticated experience, protect its route, and verify
-that signing in reaches it.
+## 🚦 Getting Started
 
-# Frontend Conventions
+### Prerequisites
+- **Node.js** (v18 or higher) & **npm**
+- **Python** (3.10 or higher) & **pip**
 
-You will be using the Vite frontend with React 19, Tailwind v4, and Shadcn UI.
-
-Generally, pages should be in the `src/pages` folder, and components should be in the `src/components` folder.
-
-Shadcn primitives are located in the `src/components/ui` folder and should be used by default.
-
-## Page routing
-
-Your page component should go under the `src/pages` folder.
-
-When adding a page, update the react router configuration in `src/main.tsx` to include the new route you just added.
-
-## Shad CN conventions
-
-Follow these conventions when using Shad CN components, which you should use by default.
-- Remember to use "cursor-pointer" to make the element clickable
-- For title text, use the "tracking-tight font-bold" class to make the text more readable
-- Always make apps MOBILE RESPONSIVE. This is important
-- AVOID NESTED CARDS. Try and not to nest cards, borders, components, etc. Nested cards add clutter and make the app look messy.
-- AVOID SHADOWS. Avoid adding any shadows to components. stick with a thin border without the shadow.
-- Avoid skeletons; instead, use the loader2 component to show a spinning loading state when loading data.
-
-
-## Landing Pages
-
-You must always create good-looking designer-level styles to your application. 
-- Make it well animated and fit a certain "theme", ie neo brutalist, retro, neumorphism, glass morphism, etc
-
-Use known images and emojis from online.
-
-If the user is logged in already, show the get started button to say "Dashboard" or "Profile" instead to take them there.
-
-## Responsiveness and formatting
-
-Make sure pages are wrapped in a container to prevent the width stretching out on wide screens. Always make sure they are centered aligned and not off-center.
-
-Always make sure that your designs are mobile responsive. Verify the formatting to ensure it has correct max and min widths as well as mobile responsiveness.
-
-- Always create sidebars for protected dashboard pages and navigate between pages
-- Always create navbars for landing pages
-- On these bars, the created logo should be clickable and redirect to the index page
-
-## Animating with Framer Motion
-
-You must add animations to components using Framer Motion. It is already installed and configured in the project.
-
-To use it, import the `motion` component from `framer-motion` and use it to wrap the component you want to animate.
-
-
-### Other Items to animate
-- Fade in and Fade Out
-- Slide in and Slide Out animations
-- Rendering animations
-- Button clicks and UI elements
-
-Animate for all components, including on landing page and app pages.
-
-## Three JS Graphics
-
-Your app comes with three js by default. You can use it to create 3D graphics for landing pages, games, etc.
-
-
-## Colors
-
-You can override colors in: `src/index.css`
-
-This uses the oklch color format for tailwind v4.
-
-Always use these color variable names.
-
-Make sure all ui components are set up to be mobile responsive and compatible with both light and dark mode.
-
-Set theme using `dark` or `light` variables at the parent className.
-
-## Styling and Theming
-
-When changing the theme, always change the underlying theme of the shad cn components app-wide under `src/components/ui` and the colors in the index.css file.
-
-Avoid hardcoding in colors unless necessary for a use case, and properly implement themes through the underlying shad cn ui components.
-
-When styling, ensure buttons and clickable items have pointer-click on them (don't by default).
-
-Always follow a set theme style and ensure it is tuned to the user's liking.
-
-## Toasts
-
-You should always use toasts to display results to the user, such as confirmations, results, errors, etc.
-
-Use the shad cn Sonner component as the toaster. For example:
-
-```
-import { toast } from "sonner"
-
-import { Button } from "@/components/ui/button"
-export function SonnerDemo() {
-  return (
-    <Button
-      variant="outline"
-      onClick={() =>
-        toast("Event has been created", {
-          description: "Sunday, December 03, 2023 at 9:00 AM",
-          action: {
-            label: "Undo",
-            onClick: () => console.log("Undo"),
-          },
-        })
-      }
-    >
-      Show Toast
-    </Button>
-  )
-}
+### 1. Clone the Repository
+```bash
+git clone https://github.com/samyak-ai16/MLOps_demand_forecast.git
+cd MLOps_demand_forecast
 ```
 
-Remember to import { toast } from "sonner". Usage: `toast("Event has been created.")`
+### 2. Frontend Setup
+```bash
+# Install frontend dependencies
+npm install
 
-## Dialogs
-
-Always ensure your larger dialogs have a scroll in its content to ensure that its content fits the screen size. Make sure that the content is not cut off from the screen.
-
-Ideally, instead of using a new page, use a Dialog instead. 
-
-# Using the Convex backend
-
-You will be implementing the convex backend. Follow your knowledge of convex and the documentation to implement the backend.
-
-## The Convex Schema
-
-You must correctly follow the convex schema implementation.
-
-The schema is defined in `src/convex/schema.ts`.
-
-Do not include the `_id` and `_creationTime` fields in your queries (it is included by default for each table).
-Do not index `_creationTime` as it is indexed for you. Never have duplicate indexes.
-
-
-## Convex Actions: Using CRUD operations
-
-When running anything that involves external connections, you must use a convex action with "use node" at the top of the file.
-
-You cannot have queries or mutations in the same file as a "use node" action file. Thus, you must use pre-built queries and mutations in other files.
-
-You can also use the pre-installed internal crud functions for the database:
-
-```ts
-// in convex/users.ts
-import { crud } from "convex-helpers/server/crud";
-import schema from "./schema.ts";
-
-export const { create, read, update, destroy } = crud(schema, "users");
-
-// in some file, in an action:
-const user = await ctx.runQuery(internal.users.read, { id: userId });
-
-await ctx.runMutation(internal.users.update, {
-  id: userId,
-  patch: {
-    status: "inactive",
-  },
-});
+# Start Vite development server
+npm run dev
 ```
+The frontend will be accessible at: `http://localhost:5173`
 
+### 3. Backend Setup
+```bash
+# In a separate terminal, install backend requirements
+pip install -r backend/requirements.txt
 
-## Common Convex Mistakes To Avoid
+# Run the FastAPI server
+cd backend
+python run.py
+```
+The FastAPI documentation (Swagger UI) will be accessible at: `http://localhost:8000/docs`
 
-When using convex, make sure:
-- Document IDs are referenced as `_id` field, not `id`.
-- Document ID types are referenced as `Id<"TableName">`, not `string`.
-- Document object types are referenced as `Doc<"TableName">`.
-- Keep schemaValidation to false in the schema file.
-- You must correctly type your code so that it passes the type checker.
-- You must handle null / undefined cases of your convex queries for both frontend and backend, or else it will throw an error that your data could be null or undefined.
-- Always use the `@/folder` path, with `@/convex/folder/file.ts` syntax for importing convex files.
-- This includes importing generated files like `@/convex/_generated/server`, `@/convex/_generated/api`
-- Remember to import functions like useQuery, useMutation, useAction, etc. from `convex/react`
-- NEVER have return type validators.
+---
+
+## 🐳 Docker Deployment
+
+To launch the full containerized stack:
+```bash
+docker-compose up --build
+```
+- **Web Dashboard:** `http://localhost:3000`
+- **FastAPI Backend:** `http://localhost:8000`
+
+---
+
+## 📡 REST API Reference
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/health` | Service health status and database statistics |
+| `GET` | `/api/companies` | List enterprise companies |
+| `GET` | `/api/warehouses` | List distribution facilities and utilization |
+| `GET` | `/api/products` | Retrieve catalog items and on-hand inventory |
+| `POST` | `/api/datasets/upload` | Upload and validate CSV/Excel demand datasets |
+| `POST` | `/api/forecast` | Generate multi-horizon ML demand forecast |
+| `GET` | `/api/inventory/recommendations` | Compute safety stock, ROP, and replenishment orders |
+| `GET` | `/api/models` | List MLflow registered models and deployment stages |
+| `POST` | `/api/models/{id}/deploy` | Promote model candidate to Production stage |
+| `POST` | `/api/models/{id}/rollback` | Rollback production serving to prior stable version |
+| `GET` | `/api/experiments` | View MLflow backtesting runs and hyperparameters |
+| `GET` | `/api/pipelines` | View automated retraining pipeline execution history |
+| `POST` | `/api/pipelines/run` | Trigger on-demand end-to-end retraining run |
+| `GET` | `/api/monitoring` | Real-time feature drift and accuracy metrics |
+| `GET` | `/api/alerts` | Active stockout, drift, and pipeline notifications |
+| `POST` | `/api/whatif` | Simulate pricing and promotional demand elasticity |
+
+---
+
+## 🛡️ License
+Designed and developed for academic research, enterprise MLOps demonstration, and professional portfolio presentation.
