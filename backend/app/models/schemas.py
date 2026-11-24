@@ -246,7 +246,7 @@ class PipelineRun(BaseModel):
 class FeatureDriftMetric(BaseModel):
     feature_name: str
     drift_score: float # p-value or distance
-    drift_detected: boolean = Field(..., alias="drift_detected")
+    drift_detected: bool
     baseline_mean: float
     current_mean: float
 
